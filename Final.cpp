@@ -8,7 +8,7 @@ using std::endl;
 using std::string;
 using std::vector;
 
-class Person {
+class Person {   /* Creates a class modeling a single person and gives them desired variables we want to control */
 private:
      string condition;
      int n, sick_days;
@@ -16,12 +16,12 @@ private:
 
 public:
 Person() {
-     sick_days=0;
+     sick_days=0;  /* Start person off as not sick */
 }
 
-string status_string() {
+string status_string() {       /* function to control if the person is sick, not sick or recovered */
      if (sick_days>0) {
-         condition="is sick";
+         condition="is sick";     
     }else if (sick_days==-1) {
          condition="is susceptible";
     } else if (sick_days==-1) {
@@ -30,7 +30,7 @@ string status_string() {
       return condition;
  }
 
-int update() {
+int update() {                /* if sick, keep track of how long they are sick */ 
      int count=0;
      if(sick_days>0) { 
         sick_days=sick_days-1;
@@ -42,7 +42,7 @@ int update() {
  }    
 }
 
-void infect(int n) {
+void infect(int n) {           /*make person sick */
       if (sick_days>-1) {
          sick_days=n;
       }
@@ -62,18 +62,18 @@ int sick() {
    }
 };
 
-class Population {
+class Population {         /* creat a class modeling a population of people */
 private:
      vector<Person> people;
      int num_people,inoculated,day,inter;
      float r;
 
 public:
-     Population(int e) {
+     Population(int e) {       /* build the population */
          BuildPop(e);
      }
 
-     int random_infection() {
+     int random_infection() {            /* Random infection function that randomly infects people */
          int count=0;
          for (int p=0;p<people.size();p++) {
          int patient_zero=0;
@@ -86,7 +86,7 @@ public:
            }
          }
 
-     int count_infected() {
+     int count_infected() {            /* Count the people infected */
          int count=0;
          for (int p=0; p<people.size(); p++) {
               if (people.at(p).sick()>0) {
@@ -95,7 +95,7 @@ public:
           }
 	 return count;
        } 
-     int count_inoculated() {
+     int count_inoculated() {           /* Count people that have recovered */
          int count=0;
          for (int p=0;p<people.size();p++) {
              if (people.at(p).sick()==1) {
@@ -105,7 +105,7 @@ public:
                 return count;
           } 
      
-     int interaction_neighbor() {
+     int interaction_neighbor() {         /* Get infected person to interact with neighbors */
          for(int p=0;p<people.size();p++) {
              int deltaneg=p-1;
              int deltapos=p+1;
@@ -148,7 +148,7 @@ public:
           return prob;
       }
 
-      int random_interaction(int interactions) {
+      int random_interaction(int interactions) {         /* Create a random interaction envrionment */
           int count=0;
           for(int p=0; p < people.size(); p++) {
              if(people.at(p).sick()>0) {
